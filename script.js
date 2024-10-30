@@ -21,13 +21,41 @@
 window.addEventListener(
     'scroll', _.throttle(() => {
         console.log('Scroll 300ms');
-    }, 300),
+    }, 3000),
 );
 
-const output = document.querySelector('.output');
-let scrollCouner = 0;
+// const output = document.querySelector('.output');
+// let scrollCouner = 0;
+
+// document.addEventListener('scroll', () => {
+//     scrollCouner += 1;
+//     output.textContent = scrollCouner;
+// })
+
+const vanilaOutput = document.querySelector('.output.vanilla');
+const throttleOutput = document.querySelector('.output.throttle');
+const debounceOutput = document.querySelector('.output.debounce');
+const eventCounter = {
+    vanilla: 0,
+    throttle: 0,
+    debounce: 0,
+}
 
 document.addEventListener('scroll', () => {
-    scrollCouner += 1;
-    output.textContent = scrollCouner;
-})
+    eventCounter.vanilla += 1;
+    vanilaOutput.textContent = eventCounter.vanilla;
+});
+
+document.addEventListener('scroll',
+    _.throttle(() => {
+    eventCounter.throttle += 1;
+    throttleOutput.textContent = eventCounter.throttle;
+   })
+)
+
+document.addEventListener('scroll',
+    _.debounce(() => {
+    eventCounter.debounce += 1;
+    debounceOutput.textContent = eventCounter.debounce;
+   })
+)
